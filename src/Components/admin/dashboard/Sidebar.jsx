@@ -22,9 +22,12 @@ import { BiCog } from "react-icons/bi";
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "../../../styles/admin/Header.css";
+import { NavLink } from "react-router-dom";
 
 
 const Sidebar = () => {
+
+    const activeStyle = { fontWeight: 500, color: "#EB5757" };
 
     //create initial menuCollapse state using useState hook
     const [menuCollapse, setMenuCollapse] = useState(false)
@@ -38,16 +41,16 @@ const Sidebar = () => {
     return (
         <>
             <div id="header" className="row bg-dark vh-100">
-                asdasd
-                {/* <ProSidebar collapsed={menuCollapse} image={img}>
+
+                <ProSidebar collapsed={menuCollapse} image={img}>
 
                     <SidebarHeader >
                         <div className="logotext">
-                            
+
                             <p className="m-2">{menuCollapse ? "Bus" : "Bus"}</p>
                         </div>
                         <div className="closemenu d-flex align-items-center" onClick={menuIconClick}>
-                            
+
                             {menuCollapse ? (
                                 <FiArrowRightCircle />
                             ) : (
@@ -57,11 +60,15 @@ const Sidebar = () => {
                     </SidebarHeader>
                     <SidebarContent >
                         <Menu iconShape="square">
-                            <MenuItem active={true} icon={<FiHome />}>
-                                Home
+                            <MenuItem icon={<FiHome />}>
+                                <NavLink to="/dashboard" activeStyle={activeStyle} exact> Dashboard</NavLink>
                             </MenuItem>
-                            <MenuItem icon={<FaList />}> List</MenuItem>
-                            <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
+                            <MenuItem icon={<FaList />}>
+                                <NavLink to="/admin/get-all-operators" activeStyle={activeStyle}> All Operators</NavLink>
+                            </MenuItem>
+                            <MenuItem icon={<FaRegHeart />}>
+                                <NavLink to="/admin/daily-revenue" activeStyle={activeStyle}> Revenue </NavLink>
+                            </MenuItem>
                             <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
                             <MenuItem icon={<BiCog />}>Settings</MenuItem>
                         </Menu>
@@ -71,7 +78,7 @@ const Sidebar = () => {
                             <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
                         </Menu>
                     </SidebarFooter>
-                </ProSidebar> */}
+                </ProSidebar>
             </div>
         </>
     );

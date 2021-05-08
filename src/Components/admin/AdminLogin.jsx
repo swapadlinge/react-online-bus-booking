@@ -1,7 +1,7 @@
-import '../../styles/common/Login.css';
 import React, { Component } from 'react';
 import LoginImg from '../../assets/login.jpg';
 import AdminService from '../../services/AdminService';
+// import '../../styles/common/Login.css';
 export default class Login extends Component {
 
     state = {
@@ -11,8 +11,14 @@ export default class Login extends Component {
     }
 
     componentDidMount() {
-        sessionStorage.setItem('username', '');
-        sessionStorage.setItem('isLoggedIn', false);
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+            // alert("Please Login !!");
+            this.props.history.push("/dashboard");
+        }
+        else {
+            sessionStorage.setItem('username', '');
+            sessionStorage.setItem('isLoggedIn', false);
+        }
     }
 
 
@@ -22,7 +28,6 @@ export default class Login extends Component {
                 alert("Enter valid username or password");
             }
             else {
-                alert("redirecting")
                 sessionStorage.setItem('username', 'Admin');
                 sessionStorage.setItem('isLoggedIn', true);
                 this.props.history.push("/dashboard");

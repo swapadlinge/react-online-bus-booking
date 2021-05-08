@@ -16,9 +16,10 @@ class AdminService {
         return axios.get(ADMIN_API_BASE_URL + 'getAllBusOperators');
     }
 
-    // getAllBusOperatorsByRoute(route) {
-    //     return axios.get(ADMIN_API_BASE_URL + 'getAllBusOperators/' + 'route');
-    // }
+    ///getRevenueByDate/{ date }
+    getRevenueByDate(date) {
+        return axios.get(ADMIN_API_BASE_URL + 'getRevenueByDate/' + date);
+    }
 
     addBusOperator(operator) {
         return axios.post(ADMIN_API_BASE_URL + 'addBusOperator', operator);
