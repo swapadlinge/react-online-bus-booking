@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import AdminService from '../../services/AdminService';
+import AdminService from '../services/AdminService';
 
 export default class AddBusOperator extends Component {
 
@@ -18,9 +18,6 @@ export default class AddBusOperator extends Component {
 
     addOperator = (e) => {
         e.preventDefault();
-        //console.log(this.state)
-        //alert("Adding"); 
-
         let operator = {
             busOperatorUsername: this.state.operatorUsername,
             password: this.state.password

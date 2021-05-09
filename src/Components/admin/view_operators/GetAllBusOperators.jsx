@@ -1,9 +1,11 @@
 
-
+import { NavLink } from "react-router-dom";
 import React, { Component } from 'react'
-import AdminService from '../../services/AdminService'
-import Navbar from './dashboard/Navbar';
-import Sidebar from './dashboard/Sidebar';
+import AdminService from '../../../services/AdminService'
+import Navbar from '../common/Navbar';
+import Sidebar from '../common/Sidebar';
+import "../common/common.css";
+
 export default class GetAllBusOperators extends Component {
 
     constructor(props) {
@@ -18,10 +20,7 @@ export default class GetAllBusOperators extends Component {
             this.setState({ busOperators: res.data })
         });
         if (sessionStorage.getItem('isLoggedIn') === 'false') {
-            alert("Please Login !!");
-            this.props.history.push("/");
-        } else {
-            // alert(typeof sessionStorage.getItem('isLoggedIn'));
+            this.props.history.push("/admin-login");
         }
     }
 
@@ -32,30 +31,30 @@ export default class GetAllBusOperators extends Component {
         this.setState({ busOperators: this.state.busOperators.filter(op => op.busOperatorUsername !== busOperatorUsername) })
     }
 
+
     render() {
         return (
-
-
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-2 col-sm-2 col-2">
                         <Sidebar />
                     </div>
                     <div className="col-md-10 col-sm-10 col-10">
-                        <div className="container-fluid">
-                            {/* Navbar Start */}
-                            <Navbar />
-                            {/* Navbar End */}
+                        <div className="container remove-all-margin">
+                            <div className="row">
+                                <Navbar />
+                            </div>
                             <div className="row">
                                 <div className="col">
-                                    <h2>All Bus Operators</h2> <br />
-                                    <table className="table table-striped">
-                                        <thead className="thead-dark">
+                                    <h2 className="mt-2">All Bus Operators</h2> <br />
+                                    <table className="table table-bordered">
+                                        <thead className="">
                                             <tr>
-                                                {/* <th scope="col">#</th> */}
-                                                <th scope="col">Bus Operator Username</th>
-                                                <th scope="col">Password</th>
-                                                <th scope="col">Operational Buses</th>
+                                                <th scope="col"></th>
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Mobile Number</th>
                                                 <th scope="col"> Actions</th>
                                             </tr>
                                         </thead>
@@ -65,21 +64,13 @@ export default class GetAllBusOperators extends Component {
                                                     return (
                                                         <tr key={op.busOperatorUsername}>
                                                             {/* <th scope="row">1</th> */}
+                                                            <td> # </td>
+                                                            <td> {op.firstName} </td>
+                                                            <td> {op.lastName} </td>
                                                             <td> {op.busOperatorUsername} </td>
-                                                            <td> ***** </td>
+                                                            <td> {op.mobileNumber} </td>
                                                             <td>
-                                                                <ul>
-                                                                    {
-                                                                        op.operationalBuses.map(
-                                                                            bus => <div key={bus.busNumber}>{bus.busNumber}</div>
-                                                                        )
-                                                                    }
-                                                                </ul>
-                                                            </td>
-                                                            <td>
-                                                                {/* <button className="btn btn-info">Update </button> */}
-                                                                {/* <button style={{ marginLeft: "10px" }} onClick={() => this.deleteBusOperator(op.busOperatorUsername)} className="btn btn-danger">Delete </button> */}
-                                                                <button style={{ marginLeft: "10px" }} className="btn btn-info">View </button>
+                                                                <button style={{ marginLeft: "10px" }} onClick={() => { this.props.history.push("/admin/get-operator", { operator: op }) }} className="btn btn-info">View </button>
                                                             </td>
                                                         </tr>
                                                     );
@@ -92,7 +83,7 @@ export default class GetAllBusOperators extends Component {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
         )
     }
 }

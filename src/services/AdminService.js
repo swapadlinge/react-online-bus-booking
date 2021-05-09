@@ -7,12 +7,40 @@ class AdminService {
 
     ///signIn/{username}/{password}
     adminSignIn(username, password) {
-        return axios.get(`${ADMIN_API_BASE_URL}/signIn/${username}/${password}`);
+        return axios.get(`${ADMIN_API_BASE_URL}signIn/${username}/${password}`);
+    }
+
+    // /getRevenueByBusOperator/{operator}
+    getRevenueByBusOperator(operator) {
+        return axios.get(`${ADMIN_API_BASE_URL}getRevenueByBusOperator/${operator}`);
+    }
+
+    ///getRevenueByBusRoute/{routeName}
+    getRevenueByBusRoute(routeName) {
+        return axios.get(`${ADMIN_API_BASE_URL}getRevenueByBusRoute/${routeName}`)
+    }
+
+    ///viewAllBusRoute
+    getAllBusRoute() {
+        return axios.get(`${ADMIN_API_BASE_URL}viewAllBusRoute`)
+    }
+
+
+
+    getOperatorCount() {
+        return axios.get(`${ADMIN_API_BASE_URL}getOperatorCount`);
+    }
+
+    getUserCount() {
+        return axios.get(`${ADMIN_API_BASE_URL}getUserCount`);
+    }
+
+    getBusCount() {
+        return axios.get(`${ADMIN_API_BASE_URL}getBusCount`);
     }
 
 
     getAllBusOperators() {
-        // console.log(axios.get(ADMIN_API_BASE_URL + 'getAllBusOperators'))
         return axios.get(ADMIN_API_BASE_URL + 'getAllBusOperators');
     }
 

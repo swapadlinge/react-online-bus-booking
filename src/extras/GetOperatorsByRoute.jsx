@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import AdminService from '../../services/AdminService'
-import Navbar from './dashboard/Navbar';
-import Sidebar from './dashboard/Sidebar';
+import AdminService from '../services/AdminService'
+import Navbar from '../Components/admin/common/Navbar';
+import Sidebar from '../Components/admin/dashboard/Sidebar';
 export default class GetAllBusOperators extends Component {
 
     constructor(props) {
