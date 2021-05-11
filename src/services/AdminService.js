@@ -25,8 +25,6 @@ class AdminService {
         return axios.get(`${ADMIN_API_BASE_URL}viewAllBusRoute`)
     }
 
-
-
     getOperatorCount() {
         return axios.get(`${ADMIN_API_BASE_URL}getOperatorCount`);
     }

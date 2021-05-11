@@ -1,49 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import LoginImg from '../../../assets/login.jpg';
 import AdminService from '../../../services/AdminService';
+import UserService from '../../../services/UserService';
 import HomeNavbar from '../../user/common/HomeNavbar';
 import './Login.css';
-export default class Login extends Component {
+export default class UserLogin extends Component {
 
     state = {
         username: "",
         password: "",
-        isLoggedIn: false,
-        usernameMsg: "",
-        passwordMsg: "",
+        isUserLoggedIn: false,
         fields: {},
         errors: {}
     }
 
-    componentDidMount() {
-        if (sessionStorage.getItem('isLoggedIn') === 'true') {
-            this.props.history.push("admin/dashboard");
-        }
-        else {
-            sessionStorage.setItem('username', '');
-            sessionStorage.setItem('isLoggedIn', false);
-        }
-    }
-
-    handleLogin = (event) => {
-        if (this.validateForm()) {
-            AdminService.adminSignIn(this.state.username, this.state.password).then(res => {
-                if (res.data === '') {
-                    // alert("Enter valid username or password");
-                    let errors = {};
-                    errors["password"] = "*Please Enter valid details";
-                    this.setState({
-                        errors: errors
-                    });
-                }
-                else {
-                    sessionStorage.setItem('username', 'Admin');
-                    sessionStorage.setItem('isLoggedIn', true);
-                    this.props.history.push("admin/dashboard");
-                }
-            });
-        }
-    }
 
 
     validateForm() {
@@ -69,27 +39,30 @@ export default class Login extends Component {
             errors["password"] = "*Please enter your password.";
         }
 
-
-        // if (!fields["emailid"]) {
-        //     formIsValid = false;
-        //     errors["emailid"] = "*Please enter your email-ID.";
-        // }
-
-        // if (typeof fields["emailid"] !== "undefined") {
-        //     //regular expression for email validation
-        //     var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-        //     if (!pattern.test(fields["emailid"])) {
-        //         formIsValid = false;
-        //         errors["emailid"] = "*Please enter valid email-ID.";
-        //     }
-        // }
-
         this.setState({
             errors: errors
         });
         return formIsValid;
     }
 
+
+    handleLogin = (event) => {
+        if (this.validateForm()) {
+            UserService.userSignIn(this.state.username, this.state.password).then(res => {
+                console.log(res.data)
+                sessionStorage.setItem('userUsername', res.data.username);
+                sessionStorage.setItem('isUserLoggedIn', true);
+                this.props.history.push("/");
+            }).catch(err => {
+                console.log(err)
+                let errors = {};
+                errors["password"] = "*Please Enter valid details";
+                this.setState({
+                    errors: errors
+                });
+            });
+        }
+    }
 
 
     handleChange = (event) => {
@@ -119,16 +92,16 @@ export default class Login extends Component {
                     <div className=" col-lg-4 col-md-4">
                         <div className="card mt-4 ">
                             <div className="card-header">
-                                <h4 className="mt-2">Admin Login</h4>
+                                <h4 className="mt-2">User Login</h4>
                             </div>
                             <div className="card-body">
                                 <div className="form-group">
-                                    <label htmlFor="username">Username <span className="required-star">* </span></label>
+                                    <label>Username <span className="required-star">*</span> </label>
                                     <input type="text" name="username" id="form-control" className="form-control" value={this.state.username} onChange={this.handleChange} />
                                     <span id="error-msg">{this.state.errors.username}</span>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="password">Password <span className="required-star">*</span></label>
+                                    <label >Password <span className="required-star">*</span></label>
                                     <div className="input-group">
                                         <input type="password" name="password" id="form-control" value={this.state.password} className="form-control" onChange={this.handleChange} />
 
@@ -147,7 +120,6 @@ export default class Login extends Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }

@@ -43,7 +43,6 @@ const Sidebar = (props) => {
     };
 
     const handleLogoutClick = (e) => {
-        console.log("Logout Clicked");
         sessionStorage.setItem('username', '');
         sessionStorage.setItem('isLoggedIn', false);
         history.push("/admin-login");
@@ -55,10 +54,10 @@ const Sidebar = (props) => {
                 <ProSidebar collapsed={menuCollapse} image={img}>
                     <SidebarHeader >
                         <div className="logotext">
-                            <p className="m-2">{menuCollapse ? "Bus" : "Bus"}</p>
+                            <p className="m-2">{menuCollapse ? "Admin Panel" : "Admin Panel"}</p>
                         </div>
                         <div className="closemenu d-flex align-items-center" onClick={menuIconClick}>
-                            {menuCollapse ? (<FiArrowRightCircle />) : (<FiArrowLeftCircle />)}
+                            {/* {menuCollapse ? (<FiArrowRightCircle />) : (<FiArrowLeftCircle />)} */}
                         </div>
                     </SidebarHeader>
                     <SidebarContent >

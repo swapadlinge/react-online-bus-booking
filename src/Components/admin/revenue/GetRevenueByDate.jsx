@@ -59,7 +59,7 @@ export default class GetRevenueByDate extends Component {
         }).catch(err => console.log("error"))
     }
 
-
+    
 
     render() {
         return (

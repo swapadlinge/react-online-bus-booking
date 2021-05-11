@@ -1,0 +1,57 @@
+
+.card ,.card-header{
+    
+    border-width: 0 0 0 0 !important;
+}
+
+.required-star{
+    color:red;
+}
+.remove-all-margin{
+margin:0 ! important; 
+padding-left:0 ! important;
+padding-right:0 ! important;
+width:100% !important;
+max-width:none !important;
+overflow: hidden !important;
+}
+
+#error-msg{
+    color : red;
+    font-size: small;
+}
+
+#form-control{
+
+    display: block;
+    /* width: 100%; */
+    font-size: 1rem !important;
+    font-weight: 400  !important;
+    line-height: 1.4  !important;
+    /* border-color: crimson !important; */
+    border-style: solid !important;
+    border-width: 0 0 1px 0 !important;
+    padding: 0px !important;
+    /* color: crimson !important; */
+    height: auto  !important;
+    border-radius: 0  !important;
+    background-color: rgb(255, 255, 255) !important;
+    background-clip: padding-box  !important;
+}
+.form-control:focus{
+
+    color: #444  !important;
+    background-color: #fff  !important;
+    border-color: #EB5757  !important;
+    outline: 0  !important;
+    box-shadow: none  !important;
+}
+.btn-register{
+    border-color: #EB5757  !important;
+    background-color: #EB5757  !important;
+}
+
+.btn-register:hover{
+    border-color: #EB5757  !important;
+    background-color: #c04747  !important;
+}

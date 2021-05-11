@@ -2,10 +2,23 @@ import React, { Component } from 'react'
 import { NavLink } from "react-router-dom";
 import { Dropdown } from 'react-bootstrap';
 import { MdPersonOutline } from "react-icons/md";
-import styled from 'styled-components';
 export default class HomeNavbar extends Component {
 
+    state = {
+        isUserLoggedIn: false,
+    }
+    componentDidMount() {
+        if (sessionStorage.getItem('isUserLoggedIn') === "true") {
+            this.setState({ isUserLoggedIn: true })
+        }
+    }
 
+    handleLogoutClick = (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('userUsername', '');
+        sessionStorage.setItem('isUserLoggedIn', false);
+        this.setState({ isUserLoggedIn: false })
+    }
     render() {
         return (
             <div>
@@ -14,24 +27,26 @@ export default class HomeNavbar extends Component {
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
-                    <div className="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+                    <div className="collapse navbar-collapse justify-content-between align-items-center" id="navbarNavAltMarkup">
                         <div className="navbar-nav">
-                            {/* <a className="nav-item nav-link active" href="#">Home <span className="sr-only">(current)</span></a>
-                            <a className="nav-item nav-link" href="#">Features</a>
+                            <a className="nav-item nav-link ml-3" href="#">View Booking </a>
+                            {/* <a className="nav-item nav-link" href="#">Features</a>
                             <a className="nav-item nav-link" href="#">Pricing</a>
                             <a className="nav-item nav-link " href="#">About Us</a> */}
                         </div>
                         <form className="form-inline">
+                            {this.state.isUserLoggedIn && <span className="text-white">{sessionStorage.getItem('userUsername')}</span>}
                             <Dropdown>
                                 <Dropdown.Toggle className="text-white" variant="" id="">
                                     < MdPersonOutline size={30} color={"white"} />
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item>Login As User</Dropdown.Item>
+                                    <Dropdown.Item href="/user-login">Login As User</Dropdown.Item>
                                     <Dropdown.Item href="/operator-login">Login As Operator</Dropdown.Item>
                                     <Dropdown.Item href="/admin-login">Login As Admin</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
+                            {this.state.isUserLoggedIn && <button className="btn text-white" onClick={this.handleLogoutClick}>Logout</button>}
                         </form>
                     </div>
                 </nav>
